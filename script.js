@@ -77,9 +77,9 @@ form.addEventListener("submit", function (e) {
             <strong>Status:</strong> VALID
             <br><br>
 
-            <a href="${verifiedIntern.file}" target="_blank" download>
-                DOWNLOAD CERTIFICATE
-            </a>
+            <a href="${verifiedIntern.file}" target="_blank">
+    DOWNLOAD CERTIFICATE
+</a>
         `;
 
         result.style.background = "#effcf4";
