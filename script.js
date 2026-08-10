@@ -1,57 +1,101 @@
 const interns = [
-  {
-    id: "CERT-001",
-    name: "Donga Hemanth",
-    email: "dongahemanth111@gmail.com",
-    domain: "Solid Works",
-    type: "Internship Certificate",
-    file: "certificates/CERT-001.pdf"
-  }
+    {
+        id: "CERT-001",
+        name: "Donga Hemanth",
+        email: "dongahemanth111@gmail.com",
+        domain: "Solid Works",
+        type: "Internship Certificate",
+        file: "certificates/CERT-001.pdf"
+    }
 ];
 
 const form = document.getElementById("verifyForm");
 const result = document.getElementById("result");
 
-form.addEventListener("submit", e => {
-  e.preventDefault();
+function cleanText(value) {
+    return value
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, " ");
+}
 
-  const name = document.getElementById("name").value.trim().toLowerCase();
-  const email = document.getElementById("email").value.trim().toLowerCase();
-  const domain = document.getElementById("domain").value.trim().toLowerCase();
-  const type = document.getElementById("type").value;
+function cleanEmail(value) {
+    return value
+        .trim()
+        .toLowerCase()
+        .replace(/^\[|\]$/g, "")
+        .replace(/\(mailto:?/g, "")
+        .replace(/\)$/g, "")
+        .replace(/\s/g, "");
+}
 
-  const x = interns.find(
-    i =>
-      i.name.toLowerCase() === name &&
-      i.email.toLowerCase() === email &&
-      i.domain.toLowerCase() === domain &&
-      i.type === type
-  );
+form.addEventListener("submit", function (e) {
+    e.preventDefault();
 
-  result.classList.remove("hidden");
+    const name = cleanText(
+        document.getElementById("name").value
+    );
 
-  if (x) {
-    result.innerHTML = `
-      <strong>✓ Certificate Verified</strong><br><br>
-      <strong>Name:</strong> ${x.name}<br>
-      <strong>Certificate ID:</strong> ${x.id}<br>
-      <strong>Domain:</strong> ${x.domain}<br>
-      <strong>Status:</strong> VALID<br><br>
-      <a href="${x.file}" target="_blank" download>
-        DOWNLOAD CERTIFICATE
-      </a>
-    `;
+    const email = cleanEmail(
+        document.getElementById("email").value
+    );
 
-    result.style.background = "#effcf4";
-    result.style.borderColor = "#bce8cb";
-    result.style.color = "#176b3a";
+    const domain = cleanText(
+        document.getElementById("domain").value
+    );
 
-  } else {
-    result.innerHTML =
-      "✕ Verification Failed<br><br>The details entered do not match a certificate.";
+    const type = document.getElementById("type").value.trim();
 
-    result.style.background = "#fff3f3";
-    result.style.borderColor = "#f0b8b8";
-    result.style.color = "#a32929";
-  }
+    const verifiedIntern = interns.find(function (intern) {
+
+        return (
+            cleanText(intern.name) === name &&
+            cleanEmail(intern.email) === email &&
+            cleanText(intern.domain) === domain &&
+            intern.type === type
+        );
+
+    });
+
+    result.classList.remove("hidden");
+
+    if (verifiedIntern) {
+
+        result.innerHTML = `
+            <strong>✓ Certificate Verified</strong>
+            <br><br>
+
+            <strong>Name:</strong> ${verifiedIntern.name}
+            <br>
+
+            <strong>Certificate ID:</strong> ${verifiedIntern.id}
+            <br>
+
+            <strong>Domain:</strong> ${verifiedIntern.domain}
+            <br>
+
+            <strong>Status:</strong> VALID
+            <br><br>
+
+            <a href="${verifiedIntern.file}" target="_blank" download>
+                DOWNLOAD CERTIFICATE
+            </a>
+        `;
+
+        result.style.background = "#effcf4";
+        result.style.borderColor = "#bce8cb";
+        result.style.color = "#176b3a";
+
+    } else {
+
+        result.innerHTML = `
+            <strong>✕ Verification Failed</strong>
+            <br><br>
+            The details entered do not match a certificate.
+        `;
+
+        result.style.background = "#fff3f3";
+        result.style.borderColor = "#f0b8b8";
+        result.style.color = "#a32929";
+    }
 });
