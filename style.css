@@ -1,0 +1,19 @@
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#eef0f9;color:#20283a}.page{min-height:100vh;padding:18px 16px 40px;display:flex;justify-content:center}.card{width:min(100%,650px);background:#fff;border-radius:28px;padding:0 32px 38px;box-shadow:0 18px 45px rgba(70,60,150,.10);overflow:hidden}.top-line{height:10px;margin:0 -32px 46px;background:linear-gradient(90deg,#6366f1,#9b4de9,#e43f91)}h1{text-align:center;margin:0;font-size:clamp(30px,7vw,43px);font-weight:800;color:#613bd5}.subtitle{text-align:center;color:#697386;font-size:23px;margin:38px 0 58px}label{display:block;font-size:18px;font-weight:800;margin:0 0 14px}input,select,textarea{width:100%;border:2px solid #e0e4eb;border-radius:19px;background:#fff;padding:19px 25px;font-size:18px;color:#20283a;outline:0;margin-bottom:36px}input:focus,select:focus,textarea:focus{border-color:#7141e8}.note{margin:-22px 0 38px;color:#d06b29;font-size:16px;font-weight:700;line-height:1.45}textarea{min-height:105px;resize:vertical}button{width:100%;border:0;border-radius:20px;padding:20px;color:#fff;font-size:18px;font-weight:800;letter-spacing:2px;cursor:pointer;background:linear-gradient(90deg,#5540e8,#8435e9);box-shadow:0 16px 28px rgba(100,55,225,.22)}.result{margin-top:28px;padding:22px;border-radius:18px;background:#effcf4;border:1px solid #bce8cb;color:#176b3a;line-height:1.7}.result a{display:inline-block;margin-top:12px;padding:12px 18px;border-radius:12px;background:#603ce0;color:#fff;text-decoration:none;font-weight:700}.hidden{display:none}@media(max-width:500px){.card{padding:0 18px 28px}.top-line{margin-left:-18px;margin-right:-18px}.subtitle{font-size:20px;margin:30px 0 45px}label{font-size:16px}input,select,textarea{font-size:16px;padding:17px 20px}}
+/* Certificate Type - reference-style native dropdown */
+select {
+  appearance: auto;
+  -webkit-appearance: auto;
+  color: #20283a;
+  background-color: #fff;
+  cursor: pointer;
+}
+select:invalid {
+  color: #c9d0da;
+}
+select option {
+  color: #20283a;
+  background: #fff;
+}
+select option:disabled {
+  color: #c9d0da;
+}

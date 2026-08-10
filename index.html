@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Certificate Verification Portal</title><link rel="stylesheet" href="style.css">
+</head><body><main class="page"><section class="card"><div class="top-line"></div>
+<h1>Demo Company</h1><p class="subtitle">Certificate Verification Portal</p>
+<form id="verifyForm">
+<label>STUDENT NAME</label><input id="name" placeholder="Name on Certificate" required>
+<label>VERIFIER EMAIL</label><input id="email" type="email" placeholder="name@organization.domain" required>
+<p class="note">⚠️ Note: Use only organization/college email ID for verification</p>
+<label>TRAINING DOMAIN NAME</label><input id="domain" placeholder="e.g. Web Development, AI, etc." required>
+<label>ISSUE CERTIFICATE TYPE</label><select id="type" required>
+          <option value="" selected disabled>Select Certificate Type</option>
+          <option>Internship Certificate</option>
+          <option>Course Certificate</option>
+          <option>Offer-Letter</option>
+          <option>Letter of Recommendation</option>
+          <option>Hackathon Certificate</option>
+        </select>
+<label>REMARK (IF ANY)</label><textarea id="remark" placeholder="Optional comments..."></textarea>
+<button>SUBMIT REQUEST</button></form>
+<div id="result" class="result hidden"></div>
+</section></main><script src="script.js"></script></body></html>
