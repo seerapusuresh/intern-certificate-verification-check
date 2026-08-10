@@ -77,7 +77,7 @@ form.addEventListener("submit", function (e) {
             <strong>Status:</strong> VALID
             <br><br>
 
-            <a href="${verifiedIntern.file}" target="_blank">
+            <a href="https://seerapusuresh.github.io/intern-certificate-verification-check/certificates/CERT-001.pdf" target="_blank" rel="noopener">
     DOWNLOAD CERTIFICATE
 </a>
         `;
