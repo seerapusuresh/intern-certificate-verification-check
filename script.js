@@ -5,7 +5,7 @@ const interns = [
         email: "dongahemanth111@gmail.com",
         domain: "Solid Works",
         type: "Internship Certificate",
-        file: "certificates/CERT-001.pdf"
+        file: "https://seerapusuresh.github.io/intern-certificate-verification-check/certificates/CERT-001.pdf"
     }
 ];
 
@@ -23,9 +23,7 @@ function cleanEmail(value) {
     return value
         .trim()
         .toLowerCase()
-        .replace(/^\[|\]$/g, "")
-        .replace(/\(mailto:?/g, "")
-        .replace(/\)$/g, "")
+        .replace(/^mailto:/, "")
         .replace(/\s/g, "");
 }
 
@@ -47,14 +45,12 @@ form.addEventListener("submit", function (e) {
     const type = document.getElementById("type").value.trim();
 
     const verifiedIntern = interns.find(function (intern) {
-
         return (
             cleanText(intern.name) === name &&
             cleanEmail(intern.email) === email &&
             cleanText(intern.domain) === domain &&
             intern.type === type
         );
-
     });
 
     result.classList.remove("hidden");
@@ -77,9 +73,9 @@ form.addEventListener("submit", function (e) {
             <strong>Status:</strong> VALID
             <br><br>
 
-            <a href="https://seerapusuresh.github.io/intern-certificate-verification-check/certificates/CERT-001.pdf" target="_blank" rel="noopener">
-    DOWNLOAD CERTIFICATE
-</a>
+            <a href="${verifiedIntern.file}" target="_blank" rel="noopener">
+                VIEW CERTIFICATE
+            </a>
         `;
 
         result.style.background = "#effcf4";
