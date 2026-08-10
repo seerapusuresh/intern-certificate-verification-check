@@ -36,7 +36,7 @@ form.addEventListener("submit", e => {
       <strong>Name:</strong> ${x.name}<br>
       <strong>Certificate ID:</strong> ${x.id}<br>
       <strong>Domain:</strong> ${x.domain}<br>
-      <strong>Status:</strong> VALID<br>
+      <strong>Status:</strong> VALID<br><br>
       <a href="${x.file}" target="_blank" download>
         DOWNLOAD CERTIFICATE
       </a>
@@ -45,6 +45,7 @@ form.addEventListener("submit", e => {
     result.style.background = "#effcf4";
     result.style.borderColor = "#bce8cb";
     result.style.color = "#176b3a";
+
   } else {
     result.innerHTML =
       "✕ Verification Failed<br><br>The details entered do not match a certificate.";
