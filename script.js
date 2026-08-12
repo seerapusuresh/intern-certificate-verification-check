@@ -5,7 +5,15 @@ const interns = [
         email: "dongahemanth111@gmail.com",
         domain: "Solid Works",
         type: "Internship Certificate",
-        file: "https://seerapusuresh.github.io/intern-certificate-verification-check/certificates/CERT-001.pdf"
+        file: "certificates/CERT-001.pdf"
+    },
+    {
+        id: "CERT-002",
+        name: "KURELLA DHANA SRI VENKATA NARASIMHA SATYA KONDA",
+        email: "nanikurella132@gmail.com",
+        domain: "Solid Works",
+        type: "Internship Certificate",
+        file: "certificates/CERT-002.pdf"
     }
 ];
 
@@ -23,38 +31,10 @@ function cleanEmail(value) {
     return value
         .trim()
         .toLowerCase()
-        .replace(/^mailto:/, "")
+        .replace(/^\[|\]$/g, "")
+        .replace(/mailto:/g, "")
+        .replace(/[<>]/g, "")
         .replace(/\s/g, "");
-}
-
-function showVerified(intern) {
-
-    result.classList.remove("hidden");
-
-    result.innerHTML = `
-        <strong>✓ Certificate Verified</strong>
-        <br><br>
-
-        <strong>Name:</strong> ${intern.name}
-        <br>
-
-        <strong>Certificate ID:</strong> ${intern.id}
-        <br>
-
-        <strong>Domain:</strong> ${intern.domain}
-        <br>
-
-        <strong>Status:</strong> VALID
-        <br><br>
-
-        <a href="${intern.file}" target="_blank" rel="noopener">
-            VIEW CERTIFICATE
-        </a>
-    `;
-
-    result.style.background = "#effcf4";
-    result.style.borderColor = "#bce8cb";
-    result.style.color = "#176b3a";
 }
 
 form.addEventListener("submit", function (e) {
@@ -86,7 +66,32 @@ form.addEventListener("submit", function (e) {
     result.classList.remove("hidden");
 
     if (verifiedIntern) {
-        showVerified(verifiedIntern);
+
+        result.innerHTML = `
+            <strong>✓ Certificate Verified</strong>
+            <br><br>
+
+            <strong>Name:</strong> ${verifiedIntern.name}
+            <br>
+
+            <strong>Certificate ID:</strong> ${verifiedIntern.id}
+            <br>
+
+            <strong>Domain:</strong> ${verifiedIntern.domain}
+            <br>
+
+            <strong>Status:</strong> VALID
+            <br><br>
+
+            <a href="${verifiedIntern.file}" target="_blank" rel="noopener">
+                VIEW CERTIFICATE
+            </a>
+        `;
+
+        result.style.background = "#effcf4";
+        result.style.borderColor = "#bce8cb";
+        result.style.color = "#176b3a";
+
     } else {
 
         result.innerHTML = `
@@ -100,28 +105,3 @@ form.addEventListener("submit", function (e) {
         result.style.color = "#a32929";
     }
 });
-
-
-/* ==========================================
-   QR CODE AUTO VERIFICATION
-   ========================================== */
-
-const params = new URLSearchParams(window.location.search);
-const certificateId = params.get("cert");
-
-if (certificateId) {
-
-    const qrCertificate = interns.find(function (intern) {
-        return intern.id.toLowerCase() === certificateId.toLowerCase();
-    });
-
-    if (qrCertificate) {
-
-        document.getElementById("name").value = qrCertificate.name;
-        document.getElementById("email").value = qrCertificate.email;
-        document.getElementById("domain").value = qrCertificate.domain;
-        document.getElementById("type").value = qrCertificate.type;
-
-        showVerified(qrCertificate);
-    }
-}
