@@ -14,7 +14,7 @@ const interns = [
         domain: "Solid Works",
         type: "Internship Certificate",
         file: "certificates/CERT-002.pdf"
-    }
+    },
      {
         id: "CERT-003",
         name: "GUDE VISHNU VARDHAN",
