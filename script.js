@@ -16,7 +16,7 @@ const interns = [
         file: "certificates/CERT-002.pdf"
     },
      {
-        id: "CERT-003",
+        id: "CERT-578",
         name: "GUDE VISHNU VARDHAN",
         email: "gudevishnuvardhan6@gmail.com",
          domain: "Full Stack Web Development",
