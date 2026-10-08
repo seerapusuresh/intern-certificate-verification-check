@@ -15,6 +15,14 @@ const interns = [
         type: "Internship Certificate",
         file: "certificates/CERT-002.pdf"
     }
+     {
+        id: "CERT-003",
+        name: "GUDE VISHNU VARDHAN",
+        email: "gudevishnuvardhan6@gmail.com",
+        domain: "Full Stack WebDevelopment",
+        type: "Internship Certificate",
+        file: "certificates/CERT-003.pdf"
+    }
 ];
 
 const form = document.getElementById("verifyForm");
