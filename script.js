@@ -21,7 +21,7 @@ const interns = [
         email: "gudevishnuvardhan6@gmail.com",
         domain: "Full Stack WebDevelopment",
         type: "Internship Certificate",
-        file: "certificates/CERT-003.pdf"
+        file: "certificates/CERT-578.pdf"
     }
 ];
 
