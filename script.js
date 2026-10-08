@@ -61,6 +61,14 @@ form.addEventListener("submit", function (e) {
     );
 
     const type = document.getElementById("type").value.trim();
+    console.log("INPUT:", {
+    name,
+    email,
+    domain,
+    type
+});
+
+console.log("DATABASE:", interns);
 
     const verifiedIntern = interns.find(function (intern) {
         return (
