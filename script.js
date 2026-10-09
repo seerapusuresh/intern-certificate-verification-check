@@ -5,22 +5,33 @@ const interns = [
         email: "dongahemanth111@gmail.com",
         domain: "Solid Works",
         type: "Internship Certificate",
+        startDate: "02/08/2026",
+        endDate: "04/10/2026",
+        duration: "2 Months",
         file: "certificates/CERT-001.pdf"
     },
+
     {
         id: "CERT-002",
         name: "KURELLA DHANA SRI VENKATA NARASIMHA SATYA KONDA",
         email: "nanikurella132@gmail.com",
         domain: "Solid Works",
         type: "Internship Certificate",
+        startDate: "02/08/2026",
+        endDate: "04/10/2026",
+        duration: "2 Months",
         file: "certificates/CERT-002.pdf"
     },
+
     {
         id: "CERT-578",
         name: "GUDE VISHNU VARDHAN",
         email: "gudevishnuvardhan6@gmail.com",
         domain: "Full Stack Web Development",
         type: "Internship Certificate",
+        startDate: "02/08/2026",
+        endDate: "04/10/2026",
+        duration: "2 Months",
         file: "certificates/CERT-578.pdf"
     }
 ];
@@ -30,7 +41,7 @@ const result = document.getElementById("result");
 
 
 /* =========================================
-   TEXT CLEANING FUNCTIONS
+   TEXT CLEANING
 ========================================= */
 
 function cleanText(value) {
@@ -52,7 +63,7 @@ function cleanEmail(value) {
 
 
 /* =========================================
-   DISPLAY VERIFIED CERTIFICATE
+   SHOW VERIFIED CERTIFICATE
 ========================================= */
 
 function showVerifiedCertificate(intern) {
@@ -69,13 +80,20 @@ function showVerifiedCertificate(intern) {
         <strong>Certificate ID:</strong> ${intern.id}
         <br>
 
-        <strong>Domain:</strong> ${intern.domain}
+        <strong>Internship Domain:</strong> ${intern.domain}
         <br>
 
         <strong>Certificate Type:</strong> ${intern.type}
         <br>
 
-        <strong>Status:</strong> VALID
+        <strong>Internship Period:</strong>
+        ${intern.startDate} – ${intern.endDate}
+        <br>
+
+        <strong>Duration:</strong> ${intern.duration}
+        <br>
+
+        <strong>Verification Status:</strong> ✓ VALID
         <br><br>
 
         <a href="${intern.file}" target="_blank" rel="noopener">
@@ -90,7 +108,7 @@ function showVerifiedCertificate(intern) {
 
 
 /* =========================================
-   DISPLAY FAILED VERIFICATION
+   SHOW VERIFICATION FAILED
 ========================================= */
 
 function showVerificationFailed() {
@@ -159,17 +177,8 @@ form.addEventListener("submit", function (e) {
 
 
 /* =========================================
-   QR CODE / DIRECT CERTIFICATE VERIFICATION
+   QR / DIRECT CERTIFICATE VERIFICATION
 ========================================= */
-
-/*
-   Example:
-
-   https://seerapusuresh.github.io/
-   intern-certificate-verification-check/
-   ?cert=CERT-578
-
-*/
 
 function verifyCertificateFromURL() {
 
@@ -180,13 +189,13 @@ function verifyCertificateFromURL() {
     const certificateID = urlParams.get("cert");
 
 
-    // No certificate ID in URL
+    // Normal website visit — show the form
     if (!certificateID) {
         return;
     }
 
 
-    // Find certificate
+    // Find certificate using Certificate ID
     const verifiedIntern = interns.find(function (intern) {
 
         return (
@@ -197,40 +206,31 @@ function verifyCertificateFromURL() {
     });
 
 
-    // Certificate found
     if (verifiedIntern) {
 
         showVerifiedCertificate(verifiedIntern);
-
-        // Optional: scroll directly to verification result
-        setTimeout(function () {
-
-            result.scrollIntoView({
-                behavior: "smooth",
-                block: "center"
-            });
-
-        }, 200);
 
     } else {
 
         showVerificationFailed();
 
-        setTimeout(function () {
-
-            result.scrollIntoView({
-                behavior: "smooth",
-                block: "center"
-            });
-
-        }, 200);
-
     }
+
+
+    // Scroll to the verification result
+    setTimeout(function () {
+
+        result.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+    }, 200);
 }
 
 
 /* =========================================
-   RUN QR VERIFICATION WHEN PAGE LOADS
+   START QR VERIFICATION
 ========================================= */
 
 verifyCertificateFromURL();
