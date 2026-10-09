@@ -33,8 +33,21 @@ const interns = [
         endDate: "04/10/2026",
         duration: "2 Months",
         file: "certificates/CERT-578.pdf"
+    },
+
+    {
+        id: "CERT-579",
+        name: "MUNNAM VENKATA LOKESH KUMAR REDDY",
+        email: "munnamlokeshreddy7@gmail.com",
+        domain: "Full Stack Web Development",
+        type: "Internship Certificate",
+        startDate: "23/07/2026",
+        endDate: "24/09/2026",
+        duration: "2 Months",
+        file: "certificates/CERT-579.pdf"
     }
 ];
+
 
 const form = document.getElementById("verifyForm");
 const result = document.getElementById("result");
@@ -50,6 +63,7 @@ function cleanText(value) {
         .toLowerCase()
         .replace(/\s+/g, " ");
 }
+
 
 function cleanEmail(value) {
     return value
@@ -189,13 +203,12 @@ function verifyCertificateFromURL() {
     const certificateID = urlParams.get("cert");
 
 
-    // Normal website visit — show the form
+    // Normal website visit
     if (!certificateID) {
         return;
     }
 
 
-    // Find certificate using Certificate ID
     const verifiedIntern = interns.find(function (intern) {
 
         return (
@@ -217,7 +230,6 @@ function verifyCertificateFromURL() {
     }
 
 
-    // Scroll to the verification result
     setTimeout(function () {
 
         result.scrollIntoView({
