@@ -10,7 +10,6 @@ const interns = [
         duration: "2 Months",
         file: "certificates/CERT-001.pdf"
     },
-
     {
         id: "CERT-002",
         name: "KURELLA DHANA SRI VENKATA NARASIMHA SATYA KONDA",
@@ -22,7 +21,6 @@ const interns = [
         duration: "2 Months",
         file: "certificates/CERT-002.pdf"
     },
-
     {
         id: "CERT-578",
         name: "GUDE VISHNU VARDHAN",
@@ -34,7 +32,6 @@ const interns = [
         duration: "2 Months",
         file: "certificates/CERT-578.pdf"
     },
-
     {
         id: "CERT-579",
         name: "MUNNAM VENKATA LOKESH KUMAR REDDY",
@@ -45,25 +42,26 @@ const interns = [
         endDate: "24/09/2026",
         duration: "2 Months",
         file: "certificates/CERT-579.pdf"
+    },
+    {
+        id: "CERT-580",
+        name: "TUMU SIVA SANKARA REDDY",
+        email: "thumusivasankarreddy2366@gmail.com",
+        domain: "Full Stack Web Development",
+        type: "Internship Certificate",
+        startDate: "28/07/2026",
+        endDate: "29/09/2026",
+        duration: "2 Months",
+        file: "certificates/CERT-580.pdf"
     }
 ];
-
 
 const form = document.getElementById("verifyForm");
 const result = document.getElementById("result");
 
-
-/* =========================================
-   TEXT CLEANING
-========================================= */
-
 function cleanText(value) {
-    return value
-        .trim()
-        .toLowerCase()
-        .replace(/\s+/g, " ");
+    return value.trim().toLowerCase().replace(/\s+/g, " ");
 }
-
 
 function cleanEmail(value) {
     return value
@@ -75,41 +73,27 @@ function cleanEmail(value) {
         .replace(/\s/g, "");
 }
 
-
-/* =========================================
-   SHOW VERIFIED CERTIFICATE
-========================================= */
-
 function showVerifiedCertificate(intern) {
-
     result.classList.remove("hidden");
 
     result.innerHTML = `
         <strong>✓ Certificate Verified</strong>
         <br><br>
-
         <strong>Name:</strong> ${intern.name}
         <br>
-
         <strong>Certificate ID:</strong> ${intern.id}
         <br>
-
         <strong>Internship Domain:</strong> ${intern.domain}
         <br>
-
         <strong>Certificate Type:</strong> ${intern.type}
         <br>
-
         <strong>Internship Period:</strong>
         ${intern.startDate} – ${intern.endDate}
         <br>
-
         <strong>Duration:</strong> ${intern.duration}
         <br>
-
         <strong>Verification Status:</strong> ✓ VALID
         <br><br>
-
         <a href="${intern.file}" target="_blank" rel="noopener">
             VIEW CERTIFICATE
         </a>
@@ -120,19 +104,12 @@ function showVerifiedCertificate(intern) {
     result.style.color = "#176b3a";
 }
 
-
-/* =========================================
-   SHOW VERIFICATION FAILED
-========================================= */
-
 function showVerificationFailed() {
-
     result.classList.remove("hidden");
 
     result.innerHTML = `
         <strong>✕ Verification Failed</strong>
         <br><br>
-
         The details entered do not match a valid certificate.
     `;
 
@@ -141,13 +118,7 @@ function showVerificationFailed() {
     result.style.color = "#a32929";
 }
 
-
-/* =========================================
-   MANUAL VERIFICATION
-========================================= */
-
 form.addEventListener("submit", function (e) {
-
     e.preventDefault();
 
     const name = cleanText(
@@ -164,85 +135,49 @@ form.addEventListener("submit", function (e) {
 
     const type = document.getElementById("type").value.trim();
 
-
     const verifiedIntern = interns.find(function (intern) {
-
         return (
             cleanText(intern.name) === name &&
             cleanEmail(intern.email) === email &&
             cleanText(intern.domain) === domain &&
             intern.type === type
         );
-
     });
 
-
     if (verifiedIntern) {
-
         showVerifiedCertificate(verifiedIntern);
-
     } else {
-
         showVerificationFailed();
-
     }
-
 });
 
-
-/* =========================================
-   QR / DIRECT CERTIFICATE VERIFICATION
-========================================= */
-
 function verifyCertificateFromURL() {
-
-    const urlParams = new URLSearchParams(
-        window.location.search
-    );
-
+    const urlParams = new URLSearchParams(window.location.search);
     const certificateID = urlParams.get("cert");
 
-
-    // Normal website visit
     if (!certificateID) {
         return;
     }
 
-
     const verifiedIntern = interns.find(function (intern) {
-
         return (
             intern.id.toLowerCase() ===
             certificateID.trim().toLowerCase()
         );
-
     });
 
-
     if (verifiedIntern) {
-
         showVerifiedCertificate(verifiedIntern);
-
     } else {
-
         showVerificationFailed();
-
     }
 
-
     setTimeout(function () {
-
         result.scrollIntoView({
             behavior: "smooth",
             block: "center"
         });
-
     }, 200);
 }
-
-
-/* =========================================
-   START QR VERIFICATION
-========================================= */
 
 verifyCertificateFromURL();
