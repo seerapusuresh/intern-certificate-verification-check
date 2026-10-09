@@ -15,11 +15,11 @@ const interns = [
         type: "Internship Certificate",
         file: "certificates/CERT-002.pdf"
     },
-     {
+    {
         id: "CERT-578",
         name: "GUDE VISHNU VARDHAN",
         email: "gudevishnuvardhan6@gmail.com",
-         domain: "Full Stack Web Development",
+        domain: "Full Stack Web Development",
         type: "Internship Certificate",
         file: "certificates/CERT-578.pdf"
     }
@@ -27,6 +27,11 @@ const interns = [
 
 const form = document.getElementById("verifyForm");
 const result = document.getElementById("result");
+
+
+/* =========================================
+   TEXT CLEANING FUNCTIONS
+========================================= */
 
 function cleanText(value) {
     return value
@@ -45,7 +50,72 @@ function cleanEmail(value) {
         .replace(/\s/g, "");
 }
 
+
+/* =========================================
+   DISPLAY VERIFIED CERTIFICATE
+========================================= */
+
+function showVerifiedCertificate(intern) {
+
+    result.classList.remove("hidden");
+
+    result.innerHTML = `
+        <strong>✓ Certificate Verified</strong>
+        <br><br>
+
+        <strong>Name:</strong> ${intern.name}
+        <br>
+
+        <strong>Certificate ID:</strong> ${intern.id}
+        <br>
+
+        <strong>Domain:</strong> ${intern.domain}
+        <br>
+
+        <strong>Certificate Type:</strong> ${intern.type}
+        <br>
+
+        <strong>Status:</strong> VALID
+        <br><br>
+
+        <a href="${intern.file}" target="_blank" rel="noopener">
+            VIEW CERTIFICATE
+        </a>
+    `;
+
+    result.style.background = "#effcf4";
+    result.style.borderColor = "#bce8cb";
+    result.style.color = "#176b3a";
+}
+
+
+/* =========================================
+   DISPLAY FAILED VERIFICATION
+========================================= */
+
+function showVerificationFailed() {
+
+    result.classList.remove("hidden");
+
+    result.innerHTML = `
+        <strong>✕ Verification Failed</strong>
+        <br><br>
+
+        The details entered do not match a valid certificate.
+    `;
+
+    result.style.background = "#fff3f3";
+    result.style.borderColor = "#f0b8b8";
+    result.style.color = "#a32929";
+}
+
+
+/* =========================================
+   MANUAL VERIFICATION
+========================================= */
+
 form.addEventListener("submit", function (e) {
+
     e.preventDefault();
 
     const name = cleanText(
@@ -61,63 +131,106 @@ form.addEventListener("submit", function (e) {
     );
 
     const type = document.getElementById("type").value.trim();
-    console.log("INPUT:", {
-    name,
-    email,
-    domain,
-    type
-});
 
-console.log("DATABASE:", interns);
 
     const verifiedIntern = interns.find(function (intern) {
+
         return (
             cleanText(intern.name) === name &&
             cleanEmail(intern.email) === email &&
             cleanText(intern.domain) === domain &&
             intern.type === type
         );
+
     });
 
-    result.classList.remove("hidden");
 
     if (verifiedIntern) {
 
-        result.innerHTML = `
-            <strong>✓ Certificate Verified</strong>
-            <br><br>
-
-            <strong>Name:</strong> ${verifiedIntern.name}
-            <br>
-
-            <strong>Certificate ID:</strong> ${verifiedIntern.id}
-            <br>
-
-            <strong>Domain:</strong> ${verifiedIntern.domain}
-            <br>
-
-            <strong>Status:</strong> VALID
-            <br><br>
-
-            <a href="${verifiedIntern.file}" target="_blank" rel="noopener">
-                VIEW CERTIFICATE
-            </a>
-        `;
-
-        result.style.background = "#effcf4";
-        result.style.borderColor = "#bce8cb";
-        result.style.color = "#176b3a";
+        showVerifiedCertificate(verifiedIntern);
 
     } else {
 
-        result.innerHTML = `
-            <strong>✕ Verification Failed</strong>
-            <br><br>
-            The details entered do not match a certificate.
-        `;
+        showVerificationFailed();
 
-        result.style.background = "#fff3f3";
-        result.style.borderColor = "#f0b8b8";
-        result.style.color = "#a32929";
     }
+
 });
+
+
+/* =========================================
+   QR CODE / DIRECT CERTIFICATE VERIFICATION
+========================================= */
+
+/*
+   Example:
+
+   https://seerapusuresh.github.io/
+   intern-certificate-verification-check/
+   ?cert=CERT-578
+
+*/
+
+function verifyCertificateFromURL() {
+
+    const urlParams = new URLSearchParams(
+        window.location.search
+    );
+
+    const certificateID = urlParams.get("cert");
+
+
+    // No certificate ID in URL
+    if (!certificateID) {
+        return;
+    }
+
+
+    // Find certificate
+    const verifiedIntern = interns.find(function (intern) {
+
+        return (
+            intern.id.toLowerCase() ===
+            certificateID.trim().toLowerCase()
+        );
+
+    });
+
+
+    // Certificate found
+    if (verifiedIntern) {
+
+        showVerifiedCertificate(verifiedIntern);
+
+        // Optional: scroll directly to verification result
+        setTimeout(function () {
+
+            result.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+        }, 200);
+
+    } else {
+
+        showVerificationFailed();
+
+        setTimeout(function () {
+
+            result.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+        }, 200);
+
+    }
+}
+
+
+/* =========================================
+   RUN QR VERIFICATION WHEN PAGE LOADS
+========================================= */
+
+verifyCertificateFromURL();
